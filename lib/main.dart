@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.green[200],
       appBar: AppBar(
-        title: Text('TO DO', style: TextStyle(color: Colors.black),),
+        title: const Text('TO DO', style: TextStyle(color: Colors.black),),
         elevation: 1,
         centerTitle: mounted,
       ),
@@ -73,7 +73,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewTask,
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add, color: Color.fromARGB(255, 255, 255, 255),),
+        backgroundColor: Colors.lightGreen.shade900,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
