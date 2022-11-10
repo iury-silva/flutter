@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_omg/util/dialog_box.dart';
 import 'package:todo_omg/util/to_do_tile.dart';
+import 'package:todo_omg/pages/ola.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.green[200],
       appBar: AppBar(
-        title: Text('TO DO'),
+        title: Text('TO DO', style: TextStyle(color: Colors.black),),
         elevation: 1,
         centerTitle: mounted,
       ),
@@ -93,9 +96,9 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        selectedItemColor: Colors.green[900],
+        selectedItemColor: Color.fromARGB(255, 255, 255, 255),
         backgroundColor: Colors.green,
-        unselectedItemColor: Colors.white,
+        unselectedItemColor: Color.fromARGB(255, 0, 0, 0),
       ),
     );
   }
