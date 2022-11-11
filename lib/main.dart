@@ -3,8 +3,6 @@ import 'package:todo_omg/util/dialog_box.dart';
 import 'package:todo_omg/util/to_do_tile.dart';
 import 'package:todo_omg/pages/ola.dart';
 
-
-
 void main() {
   runApp(const MyApp());
 }
@@ -30,6 +28,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _controller = TextEditingController();
+
   List toDoList = [
     ["Make tutorial", false],
     ["Do Exercise", false],
@@ -41,13 +41,32 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void saveNewTask() {
+    setState(() {
+      toDoList.add([_controller.text, false]);
+      _controller.clear();
+    });
+    Navigator.of(context).pop();
+  }
+
   void createNewTask() {
     showDialog(
       context: context,
       builder: (context) {
-        return DialogBox();
+        return DialogBox(
+          controller: _controller,
+          onSaved: saveNewTask,
+          onCancel: () => Navigator.of(context).pop(),
+        );
       },
     );
+  }
+
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
+    
+    });
   }
 
   int _currentIndex = 0;
@@ -55,9 +74,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[200],
+       backgroundColor: Colors.green[200],
+      
       appBar: AppBar(
-        title: const Text('TO DO', style: TextStyle(color: Colors.black),),
+        title: const Text(
+          'TO DO',
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+        ),
         elevation: 1,
         centerTitle: mounted,
       ),
@@ -68,13 +91,17 @@ class _HomePageState extends State<HomePage> {
             taskName: toDoList[index][0],
             taskCompleted: toDoList[index][1],
             onChanged: (value) => checkBoxChanged(value, index),
+            deleteFunction: (context) => deleteTask(index),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewTask,
-        child: Icon(Icons.add, color: Color.fromARGB(255, 255, 255, 255),),
-        backgroundColor: Colors.lightGreen.shade900,
+        child: Icon(
+          Icons.add,
+          color: Color.fromARGB(255, 255, 255, 255),
+        ),
+        backgroundColor: Colors.green,
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
